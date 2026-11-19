@@ -263,13 +263,13 @@ const DEFAULT_STRUCTURE = {
   role: '',
   task: '',
   context: '',
-  format: 'Markdown',
-  tone: 'Professional',
+  format: 'Tidak ada',
+  tone: 'Tidak ada',
   constraints: ''
 }
 
-const FORMAT_OPTIONS = ['Plain Text', 'Markdown', 'JSON', 'Code Block', 'Bullet Points', 'Table', 'YAML', 'XML', 'CSV']
-const TONE_OPTIONS = ['Professional', 'Friendly', 'Concise', 'Creative', 'Authoritative', 'Conversational', 'Technical', 'Persuasive', 'Empathetic', 'Humorous']
+const FORMAT_OPTIONS = ['Tidak ada', 'Plain Text', 'Markdown', 'JSON', 'Code Block', 'Bullet Points', 'Table', 'YAML', 'XML', 'CSV']
+const TONE_OPTIONS = ['Tidak ada', 'Professional', 'Friendly', 'Concise', 'Creative', 'Authoritative', 'Conversational', 'Technical', 'Persuasive', 'Empathetic', 'Humorous']
 
 /* ===== Helper Functions ===== */
 function getStorageKey(category, theme) {
@@ -297,8 +297,8 @@ function buildFinalPrompt(structure, category, model) {
   if (structure.role) parts.push(`**Role:** ${structure.role}`)
   if (structure.task) parts.push(`**Task:** ${structure.task}`)
   if (structure.context) parts.push(`**Context:** ${structure.context}`)
-  if (structure.format && structure.format !== 'Plain Text') parts.push(`**Format:** ${structure.format}`)
-  if (structure.tone && structure.tone !== 'Professional') parts.push(`**Tone:** ${structure.tone}`)
+  if (structure.format && structure.format !== 'Tidak ada') parts.push(`**Format:** ${structure.format}`)
+  if (structure.tone && structure.tone !== 'Tidak ada') parts.push(`**Tone:** ${structure.tone}`)
   if (structure.constraints) parts.push(`**Constraints:** ${structure.constraints}`)
 
   let prompt = parts.join('\n\n')
@@ -1029,7 +1029,7 @@ export default function App() {
       <header id="hero" className="relative min-h-screen flex items-center justify-center px-6 pt-20">
         <div className="section-container text-center">
           <div className="hero-title mb-6">
-            <GlitchText text="UNIVERSAL PROMPT STUDIO" className="text-4xl md:text-6xl lg:text-7xl" />
+            <GlitchText text="UNIVERSAL PROMPT STUDIO" className="text-4xl md:text-6xl lg:text-7xl animate-fade-in-up" />
           </div>
           <p className="hero-subtitle text-lg md:text-xl text-text-muted max-w-3xl mx-auto mb-10 leading-relaxed">
             Satu alat untuk semua kebutuhan prompt: menulis, coding, marketing, data, belajar, seni AI.
@@ -1037,7 +1037,7 @@ export default function App() {
           </p>
           <div className="hero-cta flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="#builder">
-              <NeonButton variant="primary" className="w-full sm:w-auto">
+              <NeonButton variant="primary" className="w-full sm:w-auto glow-cyan">
                 <ArrowRightIcon size={18} />
                 Mulai Bangun Prompt
               </NeonButton>
@@ -1058,7 +1058,7 @@ export default function App() {
 
       <section id="stats" className="stats-section py-16 px-6">
         <div className="section-container">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4" data-anim="fade-in-up">
             <StatCard label="Kategori" value="7" icon={Layers} delay={0} />
             <StatCard label="Template Siap Pakai" value="25+" icon={FileText} delay={0.1} />
             <StatCard label="Model Didukung" value="15+" icon={Brain} delay={0.2} />
