@@ -1,178 +1,193 @@
-/* ===== Enhanced Animations ===== */
+@import "tailwindcss";
 
-/* ===== Hero Section Animations ===== */
-@keyframes heroFadeIn {
-  0% { opacity: 0; transform: translateY(40px); }
-  100% { opacity: 1; transform: translateY(0); }
+/* ===== Visual System: Next-Gen Immersive Cyberpunk & Universal ===== */
+:root {
+  /* Dark / Cyberpunk Theme */
+  --cp-bg: #030712;
+  --cp-surface: rgba(15, 23, 42, 0.65);
+  --cp-surface-strong: rgba(15, 23, 42, 0.85);
+  --cp-border: rgba(0, 240, 255, 0.2);
+  --cp-border-glow: rgba(0, 240, 255, 0.5);
+  --cp-text: #f8fafc;
+  --cp-text-muted: #94a3b8;
+  --cp-cyan: #00f0ff;
+  --cp-lime: #bfff3c;
+  --cp-pink: #ff007f;
+  --cp-purple: #a855f7;
+  --cp-glow-cyan: 0 0 25px rgba(0, 240, 255, 0.35);
+  --cp-glow-lime: 0 0 25px rgba(191, 255, 60, 0.35);
+
+  /* Clean / Universal Theme */
+  --uv-bg: #f8fafc;
+  --uv-surface: rgba(255, 255, 255, 0.85);
+  --uv-surface-strong: rgba(255, 255, 255, 0.98);
+  --uv-border: #cbd5e1;
+  --uv-border-glow: #94a3b8;
+  --uv-text: #0f172a;
+  --uv-text-muted: #475569;
+  --uv-cyan: #2563eb;
+  --uv-lime: #16a34a;
+  --uv-pink: #dc2626;
+  --uv-purple: #7c3aed;
+  --uv-glow-cyan: 0 10px 30px rgba(37, 99, 235, 0.15);
+  --uv-glow-lime: 0 10px 30px rgba(22, 163, 74, 0.15);
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes heroGlitch {
-  0% { clip-path: inset(0 0 0 0); }
-  25% { clip-path: inset(0 20% 0 0); }
-  50% { clip-path: inset(0 0 0 0); }
-  75% { clip-path: inset(0 0 0 20%); }
-  100% { clip-path: inset(0 0 0 0); }
+[data-theme="cyberpunk"] {
+  --bg: var(--cp-bg);
+  --surface: var(--cp-surface);
+  --surface-strong: var(--cp-surface-strong);
+  --border: var(--cp-border);
+  --border-glow: var(--cp-border-glow);
+  --text: var(--cp-text);
+  --text-muted: var(--cp-text-muted);
+  --neon-cyan: var(--cp-cyan);
+  --neon-lime: var(--cp-lime);
+  --neon-pink: var(--cp-pink);
+  --neon-purple: var(--cp-purple);
+  --glow-cyan: var(--cp-glow-cyan);
+  --glow-lime: var(--cp-glow-lime);
 }
 
-.hero-title.animate-fade-in-up .glitch-char {
+[data-theme="universal"] {
+  --bg: var(--uv-bg);
+  --surface: var(--uv-surface);
+  --surface-strong: var(--uv-surface-strong);
+  --border: var(--uv-border);
+  --border-glow: var(--uv-border-glow);
+  --text: var(--uv-text);
+  --text-muted: var(--uv-text-muted);
+  --neon-cyan: var(--uv-cyan);
+  --neon-lime: var(--uv-lime);
+  --neon-pink: var(--uv-pink);
+  --neon-purple: var(--uv-purple);
+  --glow-cyan: var(--uv-glow-cyan);
+  --glow-lime: var(--uv-glow-lime);
+}
+
+@layer base {
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    transition: background-color var(--transition), color var(--transition);
+  }
+}
+
+/* ===== Ambient Mesh & Grid ===== */
+.ambient-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -10;
+  background: 
+    radial-gradient(circle at 15% 20%, rgba(0, 240, 255, 0.08), transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(191, 255, 60, 0.08), transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.05), transparent 60%);
+}
+
+.cyber-grid {
+  background-size: 60px 60px;
+  background-image:
+    linear-gradient(to right, rgba(0, 240, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
+}
+
+/* ===== Glassmorphism Cards ===== */
+.glass-panel {
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.glass-panel:hover {
+  border-color: var(--border-glow);
+  box-shadow: var(--glow-cyan);
+}
+
+/* ===== Interactive Studio Nodes ===== */
+.node-card {
   position: relative;
-  display: inline-block;
-  transition: none;
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  transition: all var(--transition);
 }
 
-.hero-title.animate-fade-in-up .glitch-char::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  color: var(--cp-accent);
-  animation: heroGlitch 2s infinite linear;
-  opacity: 0.7;
-}
-
-.hero-title.animate-fade-in-up {
-  animation: heroFadeIn 1.2s ease-out forwards;
-}
-
-.hero-subtitle {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 1s ease-out 0.3s forwards;
-}
-
-.hero-cta .NeonButton {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: slideDown 0.6s ease-out 0.4s forwards;
-}
-
-/* ===== Stats Section Animations ===== */
-@keyframes statFadeIn {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-.stat-card {
-  transition: all 0.4s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-4px);
+.node-card:focus-within, .node-card.active {
+  border-color: var(--neon-cyan);
   box-shadow: var(--glow-cyan);
+  transform: translateY(-2px);
 }
 
-/* ===== Features Section Animations ===== */
-@keyframes featureFadeIn {
-  0% { opacity: 0; transform: translateY(25px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-.feature-card {
-  transition: all 0.4s ease;
-  will-change: transform, opacity;
-}
-
-.feature-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--glow-cyan);
-  border-color: var(--primary);
-}
-
-/* ===== Interactive Elements ===== */
-.category-pill {
-  transition: all 0.3s ease;
-}
-
-.category-pill:hover {
-  transform: scale(1.05);
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-.template-card {
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.template-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--glow-cyan);
-}
-
-.feature-card .icon {
-  transition: all 0.3s ease;
-  will-change: transform;
-}
-
-.feature-card .icon:hover {
-  transform: rotate(2deg) scale(1.1);
-  border-color: var(--primary);
-}
-
-/* ===== Loading Animation ===== */
-.loader {
+.node-header {
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
-  animation: spin 1.5s linear infinite;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.node-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--neon-cyan);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* ===== Scroll-triggered Animations ===== */
-[data-anim="fade-in-up"] {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-glow);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-cyan);
 }
 
-[data-anim="fade-in"] {
-  opacity: 0;
-  transition: opacity 0.6s ease-out;
+/* ===== Toast ===== */
+.toast-box {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: var(--surface-strong);
+  border: 1px solid var(--neon-lime);
+  box-shadow: var(--glow-lime);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text);
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-[data-anim="slide-down"] {
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-/* ===== Enhanced Glow Effects ===== */
-.glow-cyan {
-  box-shadow: var(--glow-cyan);
-  transition: box-shadow 0.3s ease;
-}
-
-.glow-cyan:hover {
-  box-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
-}
-
-/* ===== Responsive Animations ===== */
-@media (prefers-reduced-motion: no-preference) {
-  .hero-title.animate-fade-in-up .glitch-char::before {
-    animation-duration: 3s;
-    animation-timing-function: linear;
-  }
-  
-  .hero-title.animate-fade-in-up {
-    animation-duration: 1.5s;
-  }
-  
-  .hero-subtitle {
-    animation-duration: 1s;
-  }
-  
-  .hero-cta .NeonButton {
-    animation-duration: 0.8s;
-  }
-  
-  .stat-card, .feature-card {
-    transition-duration: 0.5s;
-  }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
